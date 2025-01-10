@@ -3,16 +3,14 @@ name: Run tests
 on:
   push:
     branches: [config/ci]
-    
 build:
-    strategy:
-      matrix:
-        mysqlversion: ['mysql:5.7','mysql:8.0']
-
+    
 jobs:
   pytest:
     runs-on: ubuntu-latest
-
+    strategy:
+      matrix:
+        mysqlversion: ['mysql:5.7','mysql:8.0']
     services:
       mysql:
         image: ${{matrix.mysqlversion}}
