@@ -4,18 +4,13 @@ on:
   push:
     branches: [config/ci]
 
-build:
-    strategy:
-      matrix:
-        mysqlversion: ['mysql:5.7','mysql:8.0']
-
 jobs:
   pytest:
     runs-on: ubuntu-latest
 
     services:
       mysql:
-        image: ${{matrix.mysqlversion}}
+        image: mysql:5.7
         env:
           MYSQL_ROOT_PASSWORD: uvlhub_root_password
           MYSQL_DATABASE: uvlhubdb_test
@@ -51,5 +46,3 @@ jobs:
         MARIADB_PASSWORD: uvlhub_password
       run: |
         pytest app/modules/ --ignore-glob='*selenium*'
-  
-      
